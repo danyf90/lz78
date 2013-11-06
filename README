@@ -1,0 +1,56 @@
+########################################
+#   LZ78 COMPRESSOR and DECOMPRESSOR   #
+########################################
+
+This file will contain briefly documentation on the implemented LZ78 algorithm.
+
+BUILD ISTRUCTION
+
+  make				builds lz78 executable and documentation
+  make doc			builds lz78 documentation
+
+NAME
+
+  lz78 - an implementation of lz78 compression and decompression algorithm.
+
+SYNOPSYS
+
+  lz78 [-c [-m] [-s <dict_size>] [-t <table_size>] | -d] [-i <input_file>] [-o [<output_file>]] [-v]
+
+DESCRIPTION
+
+OPTIONS
+
+  -c                compress, cannot be specified together with -d
+
+  -d                decompress, cannot be specified together with -c
+
+  -h                print this help
+
+  -i <input>        input from file instead of stdin
+
+  -m                perform md5 check (only for compression)
+
+  -o [<output>]     output to file instead of stdout, without agruments default filename is <input>.lz78 (compression) or orginal filename (decompression)
+
+  -s <dict_size>    set dictionary size (only for compression). <dict_size> must be greater than 257. Default value is 1048576
+
+  -t <table_size>   set hash table size (only for compression). <table_size> must be greater than <dict_size>. To gain better performances (<table_size> + 257) should be a prime number. Default value is 1500190
+
+  -v                be verbose. if '-o' option is specified messages are printed to stdout, otherwise to stderr
+
+EXIT STATUS
+  0 if no error occurs, 1 otherwise.
+
+EXAMPLES
+
+  lz78 -cvi abc -o abc.lz78
+       Compress file `abc' and store the result in file `abc.lz78'.
+       During compression, verbose output is printed to standard output.
+
+  lz78 -dvi abc.lz78 -o abc
+       Decompress file `abc.lz78' and store the result in file `abc'.
+       During decompression, verbose output is printed to standard output.
+
+  dd if=/dev/sda | lz78 -co
+       Compress stdin stream and store the result in file `stdin.lz78'.
